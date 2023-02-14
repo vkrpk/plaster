@@ -88,6 +88,8 @@ public abstract class Person implements Tools{
     public void setEmail(String email) {
         if (postalCode.matches("\\.@.")) {
             this.email = email;
+        } else {
+            throw new IllegalArgumentException("Parameter is invalid.");
         }
     }
     //--------------------- TO STRING METHOD------------------------------------
