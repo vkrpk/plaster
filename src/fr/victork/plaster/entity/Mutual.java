@@ -1,42 +1,41 @@
-package victork.plaster;
+package victork.plaster.entity;
 
-public abstract class Person implements Tools{
+import victork.plaster.tools.Tools;
+
+public class Mutual implements Tools {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
     //--------------------- INSTANCE VARIABLES ---------------------------------
-    private int idPerson;
+    private int idMutual;
     private String name;
-    private String firstName;
+    private String address;
     private String postalCode;
-    private String city;
     private String phoneNumber;
-    private String email;
+    private Department department;
+
 
     //--------------------- CONSTRUCTORS ---------------------------------------
-    public Person(int idPerson, String name, String firstName, String postalCode, String city, String phoneNumber, String email) {
-        this.setIdPerson(idPerson);
+    public Mutual(int idMutual, String name, String address, String postalCode, String phoneNumber,
+                  Department department) {
+        this.setIdMutual(idMutual);
         this.setName(name);
-        this.setFirstName(firstName);
+        this.setAddress(address);
         this.setPostalCode(postalCode);
-        this.setCity(city);
         this.setPhoneNumber(phoneNumber);
-        this.setEmail(email);
+        this.setDepartment(department);
     }
+
     //--------------------- STATIC METHODS -------------------------------------
-
     //--------------------- INSTANCE METHODS -----------------------------------
-
     //--------------------- ABSTRACT METHODS -----------------------------------
-
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
-
     //--------------------- GETTERS - SETTERS ----------------------------------
-    public int getIdPerson() {
-        return idPerson;
+    public int getIdMutual() {
+        return idMutual;
     }
 
-    public void setIdPerson(int idPerson) {
-        this.idPerson = idPerson;
+    public void setIdMutual(int idMutual) {
+        this.idMutual = idMutual;
     }
 
     public String getName() {
@@ -47,12 +46,12 @@ public abstract class Person implements Tools{
         this.name = name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getAddress() {
+        return address;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPostalCode() {
@@ -60,17 +59,7 @@ public abstract class Person implements Tools{
     }
 
     public void setPostalCode(String postalCode) {
-        if (checkRegexDigitsLength(postalCode, 5)) {
-            this.postalCode = postalCode;
-        }
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+        this.postalCode = postalCode;
     }
 
     public String getPhoneNumber() {
@@ -81,16 +70,12 @@ public abstract class Person implements Tools{
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail() {
-        return email;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setEmail(String email) {
-        if (postalCode.matches("\\.@.")) {
-            this.email = email;
-        } else {
-            throw new IllegalArgumentException("Parameter is invalid.");
-        }
+    public void setDepartment(Department department) {
+        this.department = department;
     }
     //--------------------- TO STRING METHOD------------------------------------
 }

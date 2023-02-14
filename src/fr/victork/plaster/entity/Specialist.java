@@ -1,16 +1,17 @@
-package victork.plaster;
+package victork.plaster.entity;
 
-public class Speciality {
+public class Specialist extends Person implements Prescribe {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
     //--------------------- INSTANCE VARIABLES ---------------------------------
-    private int idSpeciality;
-    private String label;
+    private Speciality speciality;
 
     //--------------------- CONSTRUCTORS ---------------------------------------
-    public Speciality(int idSpeciality, String label) {
-        this.setIdSpeciality(idSpeciality);
-        this.setLabel(label);
+    public Specialist(
+            int idPerson, String name, String firstName, String postalCode, String city, String phoneNumber,
+            String email, Speciality speciality) {
+        super(idPerson, name, firstName, postalCode, city, phoneNumber, email);
+        this.setSpeciality(speciality);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
@@ -18,20 +19,12 @@ public class Speciality {
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
     //--------------------- GETTERS - SETTERS ----------------------------------
-    public int getIdSpeciality() {
-        return idSpeciality;
+    public Speciality getSpeciality() {
+        return speciality;
     }
 
-    public void setIdSpeciality(int idSpeciality) {
-        this.idSpeciality = idSpeciality;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
     }
     //--------------------- TO STRING METHOD------------------------------------
 }

@@ -1,17 +1,17 @@
-package victork.plaster;
+package victork.plaster.entity;
 
-public class Specialist extends Person {
+public class Doctor extends Person implements Prescribe {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
     //--------------------- INSTANCE VARIABLES ---------------------------------
-    private Speciality speciality;
+    private String approvalNumber;
 
     //--------------------- CONSTRUCTORS ---------------------------------------
-    public Specialist(
+    public Doctor(
             int idPerson, String name, String firstName, String postalCode, String city, String phoneNumber,
-            String email, Speciality speciality) {
+            String email, String approvalNumber) {
         super(idPerson, name, firstName, postalCode, city, phoneNumber, email);
-        this.setSpeciality(speciality);
+        this.setApprovalNumber(approvalNumber);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
@@ -19,12 +19,14 @@ public class Specialist extends Person {
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
     //--------------------- GETTERS - SETTERS ----------------------------------
-    public Speciality getSpeciality() {
-        return speciality;
+    public String getApprovalNumber() {
+        return approvalNumber;
     }
 
-    public void setSpeciality(Speciality speciality) {
-        this.speciality = speciality;
+    public void setApprovalNumber(String approvalNumber) {
+        if (checkRegexDigitsLength(approvalNumber, 11)) {
+            this.approvalNumber = approvalNumber;
+        }
     }
     //--------------------- TO STRING METHOD------------------------------------
 }

@@ -1,4 +1,4 @@
-package victork.plaster;
+package victork.plaster.entity;
 
 import java.time.LocalDate;
 

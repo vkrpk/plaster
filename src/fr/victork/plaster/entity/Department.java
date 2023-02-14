@@ -1,19 +1,16 @@
-package victork.plaster;
+package victork.plaster.entity;
 
-import java.time.LocalDate;
-
-public class Doctor extends Person {
+public class Department {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
     //--------------------- INSTANCE VARIABLES ---------------------------------
-    private String approvalNumber;
-
+    private int idDepartment;
+    private String label;
     //--------------------- CONSTRUCTORS ---------------------------------------
-    public Doctor(
-            int idPerson, String name, String firstName, String postalCode, String city, String phoneNumber,
-            String email, String approvalNumber) {
-        super(idPerson, name, firstName, postalCode, city, phoneNumber, email);
-        this.setApprovalNumber(approvalNumber);
+
+    public Department(int idDepartment, String label) {
+        this.setIdDepartment(idDepartment);
+        this.setLabel(label);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
@@ -21,14 +18,22 @@ public class Doctor extends Person {
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
     //--------------------- GETTERS - SETTERS ----------------------------------
-    public String getApprovalNumber() {
-        return approvalNumber;
+
+    public int getIdDepartment() {
+        return idDepartment;
     }
 
-    public void setApprovalNumber(String approvalNumber) {
-        if (checkRegexDigitsLength(approvalNumber, 11)) {
-            this.approvalNumber = approvalNumber;
-        }
+    public void setIdDepartment(int idDepartment) {
+        this.idDepartment = idDepartment;
     }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     //--------------------- TO STRING METHOD------------------------------------
 }
