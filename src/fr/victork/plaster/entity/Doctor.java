@@ -1,10 +1,15 @@
 package victork.plaster.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Doctor extends Person implements Prescribe {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private String approvalNumber;
+    private static List<Doctor> listOfDoctor = new ArrayList<>();
+
 
     //--------------------- CONSTRUCTORS ---------------------------------------
     public Doctor(
@@ -12,6 +17,7 @@ public class Doctor extends Person implements Prescribe {
             String email, String approvalNumber) {
         super(idPerson, name, firstName, postalCode, city, phoneNumber, email);
         this.setApprovalNumber(approvalNumber);
+        Doctor.setListOfDoctor(this);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
@@ -28,5 +34,20 @@ public class Doctor extends Person implements Prescribe {
             this.approvalNumber = approvalNumber;
         }
     }
+
+    public static List<Doctor> getListOfDoctor() {
+        return listOfDoctor;
+    }
+
+    public static void setListOfDoctor(Doctor doctor) {
+        listOfDoctor.add(doctor);
+    }
     //--------------------- TO STRING METHOD------------------------------------
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "approvalNumber='" + approvalNumber + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,9 @@ package victork.plaster.entity;
 
 import victork.plaster.tools.Tools;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Person implements Tools {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
@@ -13,9 +16,11 @@ public abstract class Person implements Tools {
     private String city;
     private String phoneNumber;
     private String email;
+    private static List<Person> listOfPerson = new ArrayList<>();
 
     //--------------------- CONSTRUCTORS ---------------------------------------
-    public Person(int idPerson, String name, String firstName, String postalCode, String city, String phoneNumber, String email) {
+    public Person(int idPerson, String name, String firstName, String postalCode, String city, String phoneNumber,
+                  String email) {
         this.setIdPerson(idPerson);
         this.setName(name);
         this.setFirstName(firstName);
@@ -23,6 +28,7 @@ public abstract class Person implements Tools {
         this.setCity(city);
         this.setPhoneNumber(phoneNumber);
         this.setEmail(email);
+        Person.setListOfPerson(this);
     }
     //--------------------- STATIC METHODS -------------------------------------
 
@@ -94,5 +100,26 @@ public abstract class Person implements Tools {
             throw new IllegalArgumentException("Parameter " + email + " is invalid.");
         }
     }
+
+    public static List<Person> getListOfPerson() {
+        return listOfPerson;
+    }
+
+    public static void setListOfPerson(Person person) {
+        listOfPerson.add(person);
+    }
     //--------------------- TO STRING METHOD------------------------------------
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "idPerson=" + idPerson +
+                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

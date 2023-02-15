@@ -1,9 +1,12 @@
 package victork.plaster.main;
 
 import victork.plaster.entity.*;
+import victork.plaster.entity.Person;
 import victork.plaster.tools.Tools;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main implements Tools {
     public static void main(String[] args) {
@@ -18,8 +21,6 @@ public class Main implements Tools {
                 moselle
         );
         Speciality cardiologist = new Speciality(1, "Cardiologist");
-        String numberAgrement = main.generateStringOfNumbers(11);
-        System.out.println(numberAgrement.getClass());
         Doctor doctorDoucet = new Doctor(
                 2,
                 "DOUCET",
@@ -40,6 +41,8 @@ public class Main implements Tools {
                 "emailSpecialist@gmail.com",
                 cardiologist
         );
+        ArrayList<Specialist> listOfSpecialists = new ArrayList<>();
+        listOfSpecialists.add(specialistLoan);
         Customer paul = new Customer(
                 1,
                 "OBAMA",
@@ -50,17 +53,40 @@ public class Main implements Tools {
                 "email@gmail.com",
                 mutualHealth.generateStringOfNumbers(15),
                 LocalDate.of(1997, 5, 5),
-                doctorDoucet, mutualHealth
+                doctorDoucet,
+                mutualHealth,
+                listOfSpecialists
         );
         Category painkiller = new Category(1, "Painkiller");
+        Category antiInflammatory = new Category(2, "Anti inflammatory");
         Medication doliprane = new Medication(
                 1,
-                "Medication",
+                "Doliprane",
                 5,
                 LocalDate.now(),
                 2000,
                 painkiller
         );
-        specialistLoan.giveAPrescription(paul, specialistLoan);
+        Medication aspirin = new Medication(
+                2,
+                "Aspirin",
+                4,
+                LocalDate.now(),
+                4000,
+                painkiller
+        );
+        ArrayList<Medication> listOfMedications = new ArrayList<>();
+        listOfMedications.add(aspirin);
+        listOfMedications.add(doliprane);
+        specialistLoan.giveAPrescription(paul, specialistLoan, listOfMedications);
+
+
+        for (Prescription prescription : paul.getListOfPrescription()
+        ) {
+            for (Medication medication : prescription.getListOfMedication()
+            ) {
+                System.out.println(medication.getName());
+            }
+        }
     }
 }

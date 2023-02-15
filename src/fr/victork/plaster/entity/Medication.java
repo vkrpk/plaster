@@ -1,6 +1,8 @@
 package victork.plaster.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Medication {
     //--------------------- CONSTANTS ------------------------------------------
@@ -12,17 +14,19 @@ public class Medication {
     private LocalDate commissioningDate;
     private int inventoryQuantity;
     private Category category;
+    private static List<Medication> listOfMedication = new ArrayList<>();
 
     //--------------------- CONSTRUCTORS ---------------------------------------
 
     public Medication(int idMedication, String name, int price, LocalDate commissioningDate, int inventoryQuantity,
-      Category category) {
+                      Category category) {
         this.setIdMedication(idMedication);
         this.setName(name);
         this.setPrice(price);
         this.setCommissioningDate(commissioningDate);
         this.setInventoryQuantity(inventoryQuantity);
         this.setCategory(category);
+        Medication.setListOfMedication(this);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
@@ -79,5 +83,25 @@ public class Medication {
         this.category = category;
     }
 
+    public static List<Medication> getListOfMedication() {
+        return listOfMedication;
+    }
+
+    public static void setListOfMedication(Medication medication) {
+        listOfMedication.add(medication);
+    }
+
     //--------------------- TO STRING METHOD------------------------------------
+
+    @Override
+    public String toString() {
+        return "Medication{" +
+                "idMedication=" + idMedication +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", commissioningDate=" + commissioningDate +
+                ", inventoryQuantity=" + inventoryQuantity +
+                ", category=" + category +
+                '}';
+    }
 }
