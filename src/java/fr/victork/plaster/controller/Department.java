@@ -9,23 +9,30 @@ import java.util.List;
 public class Department {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
+    private static ArrayList<Department> listOfDepartment = new ArrayList<>();
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private int idDepartment;
     private String label;
-    private static List<Department> listOfDepartment = new ArrayList<>();
 
     //--------------------- CONSTRUCTORS ---------------------------------------
 
     public Department(int idDepartment, String label) throws ExceptionEntity {
         this.setIdDepartment(idDepartment);
         this.setLabel(label);
-        Department.setListOfDepartment(this);
+        Department.getListOfDepartment().add(this);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
     //--------------------- INSTANCE METHODS -----------------------------------
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
+    public static ArrayList<Department> getListOfDepartment() {
+        return listOfDepartment;
+    }
+
+    public static void setListOfDepartment(ArrayList<Department> listOfDepartment) {
+        Department.listOfDepartment = listOfDepartment;
+    }
     //--------------------- GETTERS - SETTERS ----------------------------------
 
     public int getIdDepartment() {
@@ -47,16 +54,7 @@ public class Department {
             throw new ExceptionEntity("Input is not good");
         }
     }
-
-    public static List<Department> getListOfDepartment() {
-        return listOfDepartment;
-    }
-
-    public static void setListOfDepartment(Department department) {
-        listOfDepartment.add(department);
-    }
     //--------------------- TO STRING METHOD------------------------------------
-
     @Override
     public String toString() {
         return "Department{" +

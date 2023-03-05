@@ -17,10 +17,8 @@ public class Medication {
     private LocalDate commissioningDate;
     private int inventoryQuantity;
     private Category category;
-    private static List<Medication> listOfMedication = new ArrayList<>();
-
+    private static ArrayList<Medication> listOfMedication = new ArrayList<>();
     //--------------------- CONSTRUCTORS ---------------------------------------
-
     public Medication(int idMedication, String name, int price, LocalDate commissioningDate, int inventoryQuantity,
                       Category category) throws ExceptionEntity {
         this.setIdMedication(idMedication);
@@ -29,13 +27,20 @@ public class Medication {
         this.setCommissioningDate(commissioningDate);
         this.setInventoryQuantity(inventoryQuantity);
         this.setCategory(category);
-        Medication.setListOfMedication(this);
+        Medication.getListOfMedication().add(this);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
     //--------------------- INSTANCE METHODS -----------------------------------
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
+    public static List<Medication> getListOfMedication() {
+        return listOfMedication;
+    }
+
+    public static void setListOfMedication(ArrayList<Medication> listOfMedication) {
+        Medication.listOfMedication = listOfMedication;
+    }
     //--------------------- GETTERS - SETTERS ----------------------------------
 
     public int getIdMedication() {
@@ -97,17 +102,7 @@ public class Medication {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-    public static List<Medication> getListOfMedication() {
-        return listOfMedication;
-    }
-
-    public static void setListOfMedication(Medication medication) {
-        listOfMedication.add(medication);
-    }
-
     //--------------------- TO STRING METHOD------------------------------------
-
     @Override
     public String toString() {
         return "Medication{" +

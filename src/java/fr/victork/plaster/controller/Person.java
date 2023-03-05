@@ -7,10 +7,14 @@ import fr.victork.plaster.tools.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Person implements Tools {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
+    private static AtomicInteger count = new AtomicInteger(0);
+    private static ArrayList<Person> listOfPerson = new ArrayList<>();
+
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private int idPerson;
     private String name;
@@ -19,7 +23,6 @@ public abstract class Person implements Tools {
     private String city;
     private String phoneNumber;
     private String email;
-    private static List<Person> listOfPerson = new ArrayList<>();
 
     //--------------------- CONSTRUCTORS ---------------------------------------
     public Person(int idPerson, String name, String firstName, String postalCode, String city, String phoneNumber,
@@ -31,16 +34,33 @@ public abstract class Person implements Tools {
         this.setCity(city);
         this.setPhoneNumber(phoneNumber);
         this.setEmail(email);
-        Person.setListOfPerson(this);
+        Person.getListOfPerson().add(this);
+    }
+
+    public Person(String name, String firstName, String postalCode, String city, String phoneNumber,
+                  String email) throws ExceptionEntity {
+        this.setIdPerson(autoIdIncremented());
+        this.setName(name);
+        this.setFirstName(firstName);
+        this.setPostalCode(postalCode);
+        this.setCity(city);
+        this.setPhoneNumber(phoneNumber);
+        this.setEmail(email);
+        Person.getListOfPerson().add(this);
     }
     //--------------------- STATIC METHODS -------------------------------------
+    public static int autoIdIncremented() {
+        return count.incrementAndGet();
+    };
 
     //--------------------- INSTANCE METHODS -----------------------------------
 
     //--------------------- ABSTRACT METHODS -----------------------------------
 
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
-
+    public static ArrayList<Person> getListOfPerson() {
+        return listOfPerson;
+    }
     //--------------------- GETTERS - SETTERS ----------------------------------
     public int getIdPerson() {
         return idPerson;
@@ -122,13 +142,7 @@ public abstract class Person implements Tools {
         }
     }
 
-    public static List<Person> getListOfPerson() {
-        return listOfPerson;
-    }
 
-    public static void setListOfPerson(Person person) {
-        listOfPerson.add(person);
-    }
     //--------------------- TO STRING METHOD------------------------------------
 
     @Override

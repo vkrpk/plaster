@@ -4,17 +4,22 @@ import fr.victork.plaster.exception.ExceptionEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Customer extends Person {
     //--------------------- CONSTANTS ------------------------------------------
+    public static final Comparator<Customer> SORT_BY_NAME =
+            Comparator.comparing(Customer::getName);
+    public static final Comparator<Customer> SORT_BY_FIRSTNAME =
+            Comparator.comparing((Customer::getFirstName));
     //--------------------- STATIC VARIABLES -----------------------------------
+    private static ArrayList<Customer> listOfCustomer = new ArrayList<>();
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private String securityNumber;
     private LocalDate dateOfBirth;
     private Doctor doctor;
     private Mutual mutual;
-    private static List<Customer> listOfCustomer = new ArrayList<>();
     private List<Specialist> listOfSpecialist = new ArrayList<>();
     private List<Prescription> listOfPrescription = new ArrayList<>();
 
@@ -30,7 +35,7 @@ public class Customer extends Person {
         this.setDateOfBirth(dateOfBirth);
         this.setDoctor(doctor);
         this.setMutual(mutual);
-        Customer.setListOfCustomer(this);
+        Customer.getListOfCustomer().add(this);
         this.setListOfSpecialist(listOfSpecialist);
     }
 
@@ -41,6 +46,13 @@ public class Customer extends Person {
     }
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
+    public static ArrayList<Customer> getListOfCustomer() {
+        return listOfCustomer;
+    }
+
+    public static void setListOfCustomer(ArrayList<Customer> listOfCustomer) {
+        Customer.listOfCustomer = listOfCustomer;
+    }
     //--------------------- GETTERS - SETTERS ----------------------------------
     public String getSecurityNumber() {
         return securityNumber;
@@ -76,19 +88,11 @@ public class Customer extends Person {
         this.mutual = mutual;
     }
 
-    public static List<Customer> getListOfCustomer() {
-        return listOfCustomer;
-    }
-
-    public static void setListOfCustomer(Customer customer) {
-        listOfCustomer.add(customer);
-    }
-
     public List<Specialist> getListOfSpecialist() {
         return listOfSpecialist;
     }
 
-    public void setListOfSpecialist(List<Specialist> listOfSpecialist) {
+    public void setListOfSpecialist(ArrayList<Specialist> listOfSpecialist) {
         this.listOfSpecialist = listOfSpecialist;
     }
 
@@ -96,8 +100,12 @@ public class Customer extends Person {
         return listOfPrescription;
     }
 
+    public void setListOfPrescription(ArrayList<Prescription> listOfPrescription) {
+        this.listOfPrescription = listOfPrescription;
+    }
+
     public void addPrescriptionToTheList(Prescription prescription) {
-        this.listOfPrescription.add(prescription);
+        this.getListOfPrescription().add(prescription);
     }
 
     //--------------------- TO STRING METHOD------------------------------------

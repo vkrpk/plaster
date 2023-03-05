@@ -3,21 +3,35 @@ package fr.victork.plaster.controller;
 import fr.victork.plaster.exception.ExceptionEntity;
 import fr.victork.plaster.tools.ControlString;
 
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Category {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private int idCategory;
     private String label;
+    private static AtomicInteger count = new AtomicInteger(0);
+    private static ArrayList<Category> listOfCategory = new ArrayList<>();
+
+
     //--------------------- CONSTRUCTORS ---------------------------------------
     public Category(int idCategory, String label) throws ExceptionEntity {
         this.setIdCategory(idCategory);
         this.setLabel(label);
+        Category.getListOfCategory().add(this);
     }
     //--------------------- STATIC METHODS -------------------------------------
     //--------------------- INSTANCE METHODS -----------------------------------
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
+    public static ArrayList<Category> getListOfCategory() {
+        return listOfCategory;
+    }
+    public static int autoIdIncremented() {
+        return count.incrementAndGet();
+    };
     //--------------------- GETTERS - SETTERS ----------------------------------
     public int getIdCategory() {
         return idCategory;

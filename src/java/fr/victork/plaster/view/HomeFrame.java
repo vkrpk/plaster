@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.AbstractTableModel;
 
+import fr.victork.plaster.controller.Medication;
 import fr.victork.plaster.controller.Prescription;
 import fr.victork.plaster.exception.ExceptionEntity;
 import fr.victork.plaster.main.Main;
@@ -24,6 +25,9 @@ public class HomeFrame extends JFrame implements Tools {
     private JPanel contentPane = (JPanel) this.getContentPane();
     private JTable table = new JTable();
 
+    private JComboBox dropdownList = new JComboBox();
+
+
     //--------------------- CONSTRUCTORS ---------------------------------------
     public HomeFrame() throws ExceptionEntity {
         super("Plaster");
@@ -40,13 +44,16 @@ public class HomeFrame extends JFrame implements Tools {
         this.setLocation(screenWidth - windowWidth, screenHeight - windowHeight);
         //this.setLocationRelativeTo(null);
 
-
         //this.desktopPane.setBackground(Color.RED);
         this.createStatusBarAndSideMenu();
 
         JTable table = new JTable(new MyTableModel());
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         JScrollPane scrollPane = new JScrollPane(table);
+        this.contentPane.add(scrollPane, BorderLayout.LINE_END);
+        getDropdownList();
+        this.contentPane.add(dropdownList, BorderLayout.NORTH);
+        dropdownList.addActionListener(this::dropdownListener);
         /*JInternalFrame firstWindow = new JInternalFrame("Première fenêtre");
         firstWindow.setSize(300,200);
         firstWindow.setVisible(true);
@@ -72,11 +79,20 @@ public class HomeFrame extends JFrame implements Tools {
         }
         contentPane.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
         */
-        this.contentPane.add(scrollPane, BorderLayout.LINE_END);
     }
+
+
     //--------------------- STATIC METHODS -------------------------------------
     //--------------------- INSTANCE METHODS -----------------------------------
-    private void btnMedicationListener(ActionEvent event){
+    private void dropdownListener(ActionEvent actionEvent) {
+        System.out.println("test");
+    }
+    private void btnMedicationListener(ActionEvent event)  {
+        try {
+            new MedicationFrame();
+        } catch (UnsupportedLookAndFeelException e) {
+            throw new RuntimeException(e);
+        }
     }
     private void btnPrescriptionHistoryListener(ActionEvent event){
 
@@ -99,15 +115,20 @@ public class HomeFrame extends JFrame implements Tools {
         statusBar.setPreferredSize(new Dimension(0, 40));
         this.contentPane.add(statusBar, BorderLayout.PAGE_END);
     }
+
+    public void getDropdownList(){
+        for (Prescription prescription: Prescription.getListOfPrescription()
+        ) {
+            this.dropdownList.addItem(prescription.getIdPrescription() + " - " + prescription.getCustomer().getName() +
+                    " - " +
+                    prescription.getDatePrescription());
+        }
+    }
     //--------------------- ABSTRACT METHODS -----------------------------------
     public static void main(String[] args) throws Exception {
-        // Apply a look and feel
         JFrame.setDefaultLookAndFeelDecorated(true);
         UIManager.setLookAndFeel(new NimbusLookAndFeel());
-
-
         HomeFrame homeFrame = new HomeFrame();
-        //homeFrame.pack();
         homeFrame.setVisible(true);
     }
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
@@ -124,7 +145,6 @@ public class HomeFrame extends JFrame implements Tools {
             ArrayList<Prescription> prescriptions = (ArrayList<Prescription>) Prescription.getListOfPrescription();
             this.data = new Object[prescriptions.size()][3];
 
-            System.out.println(Prescription.getListOfPrescription().size());
             for (int i = 0; i < prescriptions.size(); i++) {
                 Prescription prescription = prescriptions.get(i);
                 this.data[i][0] = prescription.getDatePrescription();

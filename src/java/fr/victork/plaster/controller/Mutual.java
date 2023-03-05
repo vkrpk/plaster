@@ -12,6 +12,8 @@ import java.util.Map;
 public class Mutual implements Tools {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
+    private static ArrayList<Mutual> listOfMutual = new ArrayList<>();
+
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private int idMutual;
     private String name;
@@ -19,26 +21,32 @@ public class Mutual implements Tools {
     private String postalCode;
     private String phoneNumber;
     private Department department;
-    private static List<Mutual> listOfMutual = new ArrayList<>();
-
-    private static Map<Float, Medication> reimbursementRatePerMedication = new LinkedHashMap<>();
+    private Map<Medication, Integer> reimbursementRatePerMedication;
 
     //--------------------- CONSTRUCTORS ---------------------------------------
     public Mutual(int idMutual, String name, String address, String postalCode, String phoneNumber,
-                  Department department) throws ExceptionEntity {
+                  Department department, Map<Medication, Integer> reimbursementRatePerMedication) throws ExceptionEntity {
         this.setIdMutual(idMutual);
         this.setName(name);
         this.setAddress(address);
         this.setPostalCode(postalCode);
         this.setPhoneNumber(phoneNumber);
         this.setDepartment(department);
-        Mutual.setListOfMutual(this);
+        this.setReimbursementRatePerMedication(reimbursementRatePerMedication);
+        Mutual.getListOfMutual().add(this);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
     //--------------------- INSTANCE METHODS -----------------------------------
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
+    public static ArrayList<Mutual> getListOfMutual() {
+        return listOfMutual;
+    }
+
+    public static void setListOfMutual(ArrayList<Mutual> listOfMutual) {
+        Mutual.listOfMutual = listOfMutual;
+    }
     //--------------------- GETTERS - SETTERS ----------------------------------
     public int getIdMutual() {
         return idMutual;
@@ -96,20 +104,12 @@ public class Mutual implements Tools {
         this.department = department;
     }
 
-    public static List<Mutual> getListOfMutual() {
-        return listOfMutual;
-    }
-
-    public static void setListOfMutual(Mutual mutual) {
-        listOfMutual.add(mutual);
-    }
-
-    public static Map<Float, Medication> getReimbursementRatePerMedication() {
+    public Map<Medication, Integer> getReimbursementRatePerMedication() {
         return reimbursementRatePerMedication;
     }
 
-    public static void addMedicationReimbursementRate(Float rate, Medication medication) {
-        reimbursementRatePerMedication.put(rate, medication);
+    public void setReimbursementRatePerMedication(Map<Medication, Integer> reimbursementRatePerMedication) {
+        this.reimbursementRatePerMedication = reimbursementRatePerMedication;
     }
     //--------------------- TO STRING METHOD------------------------------------
 

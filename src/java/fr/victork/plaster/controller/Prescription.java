@@ -3,29 +3,30 @@ package fr.victork.plaster.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Prescription {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
-    private static List<Prescription> listOfPrescription = new ArrayList<>();
+    private static ArrayList<Prescription> listOfPrescription = new ArrayList<>();
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private int idPrescription;
     private LocalDate datePrescription;
     private Customer customer;
     private Person prescriber;
-    private List<Medication> listOfMedication = new ArrayList<>();
-
+    private Map<Medication, Integer> listOfMedication;
 
     //--------------------- CONSTRUCTORS ---------------------------------------
 
     public Prescription(int idPrescription, LocalDate datePrescription, Customer customer, Person prescriber,
-                        ArrayList<Medication> listOfMedication) {
+                        Map<Medication, Integer> listOfMedication) {
         this.setIdPrescription(idPrescription);
         this.setDatePrescription(datePrescription);
         this.setCustomer(customer);
         this.setPrescriber(prescriber);
+
         this.setListOfMedication(listOfMedication);
-        Prescription.setListOfPrescription(this);
+        Prescription.getListOfPrescription().add(this);
         customer.addPrescriptionToTheList(this);
     }
 
@@ -43,6 +44,12 @@ public class Prescription {
     }
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
+    public static ArrayList<Prescription> getListOfPrescription() {
+        return listOfPrescription;
+    }
+    public static void setListOfPrescription(ArrayList<Prescription> listOfPrescription) {
+        Prescription.listOfPrescription = listOfPrescription;
+    }
     //--------------------- GETTERS - SETTERS ----------------------------------
 
     public int getIdPrescription() {
@@ -81,20 +88,13 @@ public class Prescription {
         }
     }
 
-    public List<Medication> getListOfMedication() {
+    public Map<Medication, Integer> getListOfMedication() {
         return listOfMedication;
     }
 
-    public void setListOfMedication(List<Medication> listOfMedication) {
+    public void setListOfMedication(Map<Medication, Integer> listOfMedication) {
         this.listOfMedication = listOfMedication;
     }
 
-    public static List<Prescription> getListOfPrescription() {
-        return listOfPrescription;
-    }
-
-    public static void setListOfPrescription(Prescription prescription) {
-        listOfPrescription.add(prescription);
-    }
     //--------------------- TO STRING METHOD------------------------------------
 }

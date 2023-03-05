@@ -9,23 +9,30 @@ import java.util.List;
 public class Speciality {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
+    private static ArrayList<Speciality> listOfSpeciality = new ArrayList<>();
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private int idSpeciality;
     private String label;
-    private static List<Speciality> listOfSpeciality = new ArrayList<>();
 
 
     //--------------------- CONSTRUCTORS ---------------------------------------
     public Speciality(int idSpeciality, String label) throws ExceptionEntity {
         this.setIdSpeciality(idSpeciality);
         this.setLabel(label);
-        Speciality.setListOfSpeciality(this);
+        Speciality.getListOfSpeciality().add(this);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
     //--------------------- INSTANCE METHODS -----------------------------------
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
+    public static ArrayList<Speciality> getListOfSpeciality() {
+        return listOfSpeciality;
+    }
+
+    public static void setListOfSpeciality(ArrayList<Speciality> listOfSpeciality) {
+        Speciality.listOfSpeciality = listOfSpeciality;
+    }
     //--------------------- GETTERS - SETTERS ----------------------------------
     public int getIdSpeciality() {
         return idSpeciality;
@@ -45,14 +52,6 @@ public class Speciality {
         } else {
             throw new ExceptionEntity("Input is not good");
         }
-    }
-
-    public static List<Speciality> getListOfSpeciality() {
-        return listOfSpeciality;
-    }
-
-    public static void setListOfSpeciality(Speciality speciality) {
-        listOfSpeciality.add(speciality);
     }
     //--------------------- TO STRING METHOD------------------------------------
 

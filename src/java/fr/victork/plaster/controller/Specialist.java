@@ -8,9 +8,9 @@ import java.util.List;
 public class Specialist extends Person implements Prescribe {
     //--------------------- CONSTANTS ------------------------------------------
     //--------------------- STATIC VARIABLES -----------------------------------
+    private static ArrayList<Specialist> listOfSpecialist = new ArrayList<>();
     //--------------------- INSTANCE VARIABLES ---------------------------------
     private Speciality speciality;
-    private static List<Specialist> listOfSpecialist = new ArrayList<>();
 
     //--------------------- CONSTRUCTORS ---------------------------------------
     public Specialist(
@@ -18,10 +18,17 @@ public class Specialist extends Person implements Prescribe {
             String email, Speciality speciality) throws ExceptionEntity {
         super(idPerson, name, firstName, postalCode, city, phoneNumber, email);
         this.setSpeciality(speciality);
-        Specialist.setListOfSpecialist(this);
+        Specialist.getListOfSpecialist().add(this);
     }
 
     //--------------------- STATIC METHODS -------------------------------------
+    public static List<Specialist> getListOfSpecialist() {
+        return listOfSpecialist;
+    }
+
+    public static void setListOfSpecialist(ArrayList<Specialist> listOfSpecialist) {
+        Specialist.listOfSpecialist = listOfSpecialist;
+    }
     //--------------------- INSTANCE METHODS -----------------------------------
     //--------------------- ABSTRACT METHODS -----------------------------------
     //--------------------- STATIC - GETTERS - SETTERS -------------------------
@@ -34,13 +41,7 @@ public class Specialist extends Person implements Prescribe {
         this.speciality = speciality;
     }
 
-    public static List<Specialist> getListOfSpecialist() {
-        return listOfSpecialist;
-    }
 
-    public static void setListOfSpecialist(Specialist specialist) {
-        listOfSpecialist.add(specialist);
-    }
     //--------------------- TO STRING METHOD------------------------------------
 
     @Override
